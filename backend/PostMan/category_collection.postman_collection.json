@@ -1,0 +1,83 @@
+{
+    "info": {
+      "name": "Category API",
+      "_postman_id": "c1a6c0a3-97d4-4c6e-a0b4-9b8b54d65b3a",
+      "description": "Collection to test all category routes (CRUD)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Add Category",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+            { "key": "Content-Type", "value": "application/json", "type": "text" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Electronics\",\n  \"name_arabic\": \"الكترونيات\"\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/category",
+            "host": ["{{base_url}}"],
+            "path": ["api", "category"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get All Categories",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{base_url}}/api/category",
+            "host": ["{{base_url}}"],
+            "path": ["api", "category"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Update Category",
+        "request": {
+          "method": "PUT",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+            { "key": "Content-Type", "value": "application/json", "type": "text" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Updated Electronics\"\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/category/1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "category", "1"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Delete Category",
+        "request": {
+          "method": "DELETE",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+          ],
+          "url": {
+            "raw": "{{base_url}}/api/category/1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "category", "1"]
+          }
+        },
+        "response": []
+      }
+    ],
+    "variable": [
+      { "key": "base_url", "value": "http://localhost:5000" },
+      { "key": "token", "value": "" }
+    ]
+  }
+  

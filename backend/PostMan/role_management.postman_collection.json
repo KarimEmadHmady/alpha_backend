@@ -1,0 +1,96 @@
+{
+    "info": {
+      "name": "Role Management API Collection - Alpha Project",
+      "_postman_id": "a4b1e2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5",
+      "description": "Postman collection for testing user role management.",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Admin Change User Role",
+        "item": [
+          {
+            "name": "Change user role to manager",
+            "request": {
+              "method": "PUT",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}" },
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"role\": \"manager\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/users/role/1",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "users",
+                  "role",
+                  "1"
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Change user role to invalid role",
+            "request": {
+              "method": "PUT",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}" },
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"role\": \"invalid_role\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/users/role/1",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "users",
+                  "role",
+                  "1"
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Change user role without admin token",
+            "request": {
+              "method": "PUT",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"role\": \"manager\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/users/role/1",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "users",
+                  "role",
+                  "1"
+                ]
+              }
+            },
+            "response": []
+          }
+        ]
+      }
+    ],
+    "variable": [
+        { "key": "base_url", "value": "http://localhost:5000/api" },
+        { "key": "token", "value": "" }
+    ]
+}

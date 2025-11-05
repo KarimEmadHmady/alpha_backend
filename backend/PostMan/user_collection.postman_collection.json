@@ -1,0 +1,165 @@
+{
+    "info": {
+      "name": "User API Collection - Alpha Project",
+      "_postman_id": "b12345ab-678c-90de-f123-4567890abcde",
+      "description": "Full automatic user API testing collection for Alpha backend",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Login",
+            "request": {
+              "method": "POST",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"12345678\"\n}"
+              },
+              "url": "{{base_url}}/users/login"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "exec": [
+                    "let res = pm.response.json();",
+                    "if (res.token) {",
+                    "  pm.environment.set('token', res.token);",
+                    "  console.log('Token saved ✅');",
+                    "} else {",
+                    "  console.log('No token found ❌');",
+                    "}"
+                  ],
+                  "type": "text/javascript"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Register User (Admin Only)",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}" },
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"username\": \"karim\",\n  \"email\": \"karim@example.com\",\n  \"password\": \"12345678\",\n  \"role\": \"user\"\n}"
+              },
+              "url": "{{base_url}}/users/register"
+            },
+            "response": []
+          },
+          {
+            "name": "Forgot Password",
+            "request": {
+              "method": "POST",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"karim@example.com\"\n}"
+              },
+              "url": "{{base_url}}/users/forgot-password"
+            },
+            "response": []
+          },
+          {
+            "name": "Reset Password",
+            "request": {
+              "method": "POST",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"karim@example.com\",\n  \"token\": \"<PASTE_TOKEN_HERE>\",\n  \"newPassword\": \"newpass123\"\n}"
+              },
+              "url": "{{base_url}}/users/reset-password"
+            },
+            "response": []
+          },
+          {
+            "name": "Logout Current User",
+            "request": {
+              "method": "POST",
+              "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+              "url": "{{base_url}}/users/logout"
+            },
+            "response": []
+          },
+          {
+            "name": "Logout All Users (Admin)",
+            "request": {
+              "method": "POST",
+              "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+              "url": "{{base_url}}/users/logoutAll"
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Profile",
+        "item": [
+          {
+            "name": "Get All Users (Admin Only)",
+            "request": {
+              "method": "GET",
+              "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+              "url": "{{base_url}}/users"
+            },
+            "response": []
+          },
+          {
+            "name": "Update User (Admin Only)",
+            "request": {
+              "method": "PUT",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}" },
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"username\": \"updated_karim\",\n  \"role\": \"admin\"\n}"
+              },
+              "url": "{{base_url}}/users/1"
+            },
+            "response": []
+          },
+          {
+            "name": "Update Bio",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}" },
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"bio\": \"Software Developer and Coffee Lover ☕\"\n}"
+              },
+              "url": "{{base_url}}/users/bio"
+            },
+            "response": []
+          },
+          {
+            "name": "Delete User (Admin Only)",
+            "request": {
+              "method": "DELETE",
+              "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+              "url": "{{base_url}}/users/2"
+            },
+            "response": []
+          }
+        ]
+      }
+    ],
+    "variable": [
+      { "key": "base_url", "value": "http://localhost:5000/api" },
+      { "key": "token", "value": "" }
+    ]
+  }
+  
