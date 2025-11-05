@@ -1,0 +1,282 @@
+{
+    "info": {
+      "name": "Fund API",
+      "_postman_id": "YOUR_UNIQUE_POSTMAN_ID",
+      "description": "Collection to test all fund routes (CRUD and more)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Create Fund",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+          ],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              { "key": "name", "value": "Test Fund", "type": "text" },
+              { "key": "description", "value": "A description for the test fund.", "type": "text" },
+              { "key": "currentprice", "value": "100.00", "type": "text" },
+              { "key": "currency", "value": "USD", "type": "text" },
+              { "key": "subscription_frequency", "value": "Monthly", "type": "text" },
+              { "key": "redemption_frequency", "value": "Quarterly", "type": "text" },
+              { "key": "minimum_initial", "value": "1000", "type": "text" },
+              { "key": "Minimum_redemption_amount", "value": "100", "type": "text" },
+              { "key": "subscription_fee", "value": "0.01", "type": "text" },
+              { "key": "redemption_fee", "value": "0.005", "type": "text" },
+              { "key": "type", "value": "Equity", "type": "text" },
+              { "key": "annualfee", "value": "0.02", "type": "text" },
+              { "key": "catid", "value": "1", "type": "text" },
+              { "key": "fund_manager_name", "value": "John Doe", "type": "text" },
+              { "key": "fund_link", "value": "http://example.com/fund", "type": "text" },
+              { "key": "image", "type": "file", "src": "/path/to/your/image.jpg" },
+              { "key": "fund_manager_image", "type": "file", "src": "/path/to/your/manager_image.jpg" }
+            ]
+          },
+          "url": {
+            "raw": "{{base_url}}/api/funds",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Update Fund",
+        "request": {
+          "method": "PUT",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+          ],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              { "key": "name", "value": "Updated Test Fund", "type": "text" },
+              { "key": "description", "value": "An updated description.", "type": "text" },
+              { "key": "currentprice", "value": "105.00", "type": "text" },
+              { "key": "image", "type": "file", "src": "/path/to/your/new_image.jpg" }
+            ]
+          },
+          "url": {
+            "raw": "{{base_url}}/api/funds/1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "1"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Update Fund Price",
+        "request": {
+          "method": "PUT",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+            { "key": "Content-Type", "value": "application/json", "type": "text" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"currentprice\": 105.00,\n  \"newprice\": 106.50\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/funds/1/price",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "1", "price"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Change Fund Status (Approve)",
+        "request": {
+          "method": "PUT",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+            { "key": "Content-Type", "value": "application/json", "type": "text" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"status\": 1\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/funds/status/1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "status", "1"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Change Fund Status (Pending)",
+        "request": {
+          "method": "PUT",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+            { "key": "Content-Type", "value": "application/json", "type": "text" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"status\": 0\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/funds/status/1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "status", "1"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Decline Fund Status",
+        "request": {
+          "method": "PUT",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+            { "key": "Content-Type", "value": "application/json", "type": "text" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"message\": \"Fund declined due to incomplete information.\"\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/funds/status/decline/1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "status", "decline", "1"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Delete Fund",
+        "request": {
+          "method": "DELETE",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+          ],
+          "url": {
+            "raw": "{{base_url}}/api/funds/1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "1"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get Funds for Current User (Paginated)",
+        "request": {
+          "method": "GET",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+          ],
+          "url": {
+            "raw": "{{base_url}}/api/funds/me?page=1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "me"],
+            "query": [
+              { "key": "page", "value": "1" }
+            ]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get All Funds (Paginated)",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{base_url}}/api/funds?page=1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds"],
+            "query": [
+              { "key": "page", "value": "1" }
+            ]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get All Funds (No Pagination)",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{base_url}}/api/funds/all",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "all"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Reorder Funds",
+        "request": {
+          "method": "PUT",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+            { "key": "Content-Type", "value": "application/json", "type": "text" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"orderedIds\": [3, 1, 2]\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/funds/reorder",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "reorder"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get Pending Funds",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{base_url}}/api/funds/status?page=1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "status"],
+            "query": [
+              { "key": "page", "value": "1" }
+            ]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get Approved Funds",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{base_url}}/api/funds/approved?page=1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "approved"],
+            "query": [
+              { "key": "page", "value": "1" }
+            ]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get Fund Details by ID",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{base_url}}/api/funds/1",
+            "host": ["{{base_url}}"],
+            "path": ["api", "funds", "1"]
+          }
+        },
+        "response": []
+      }
+    ],
+    "variable": [
+      { "key": "base_url", "value": "http://localhost:5000" },
+      { "key": "token", "value": "" }
+    ]
+  }

@@ -11,6 +11,7 @@ import session from 'express-session';
 import mysqlSession from 'express-mysql-session';
 import categoryRoutes from "./src/routes/category.routes.js";
 import userRoutes from "./src/routes/user.routes.js";
+import fundRoutes from "./src/routes/fund.routes.js";
 
 dotenv.config();
 
@@ -48,6 +49,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use("/api/categories", categoryRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/funds", fundRoutes);
 
 app.use(errorHandler);
 
